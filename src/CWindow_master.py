@@ -44,7 +44,13 @@ class MasterPage():
         for player in self.tournament.scoreboard:
             self.listbox_scoreboard.insert(index,player.name + " " + str(player.point))
             index+=1
-    
+    def updateRoundsList(self):
+        self.listbox_rounds.delete(0,'end')
+        index = 1
+        for round in self.tournament.rounds:
+            self.listbox_rounds.insert(index,str(index) + ": " + round.status)
+            index+=1
+
     def subNewPlayer(self,popup,i_name,i_elo,i_nationality):
         p = Player(i_name.get(),i_elo.get(),i_nationality.get())
         if len(self.tournament.playerTab) == 0:
@@ -102,6 +108,7 @@ class MasterPage():
         self.frame_section.pack()
         self.frame_startTournament.pack()
         
+        
 
     def createTournament(self):
         self.button_createTournament.pack_forget()
@@ -129,14 +136,25 @@ class MasterPage():
 
         cTournament_frame_createTournament.pack()
     
-    def startTournament(self):
-        print("Ca start tavu")
+    def startTournament(self,roundsEntry):
+        self.tournament.nbrRounds = int(roundsEntry.get())
+        roundsEntry.delete(0,'end')
+        self.frame_startTournament.pack_forget()
+
+        self.tournament.initRounds()
+        self.tournament.initFirstRound()
+        self.updateRoundsList()
+        self.tournament.currRound+=1
+    
+    def seeSpecificRound(self,roundListBox):
+        if self.tournament.currRound!=0:
+            index = roundListBox.curselection()[0]
+            print(self.listbox_rounds.get(index))
 
     def __init__(self):
         self.tournament = None
 
-
-            # Initialisatio nde la fenetre
+            # Initialisation de la fenetre
         self.window = Tk()
         self.window.geometry(self.WINDOW_WIDTH + "x" + self.WINDOW_HEIGHT)
         self.window.minsize(self.WINDOW_MIN_WIDTH,self.WINDOW_MIN_HEIGHT)
@@ -173,12 +191,16 @@ class MasterPage():
 
         self.frame_rounds = Frame(self.frame_section)
         
-        self.label_rounds_title = Label(self.frame_rounds,text="List of rounds")
+        self.frame_rounds_title = Frame(self.frame_rounds)
+        self.label_rounds_title = Label(self.frame_rounds_title,text="List of rounds")
         self.label_rounds_title.grid(row=0,column=0)
+        self.button_rounds_see = Button(self.frame_rounds_title,text="see round",command=lambda : self.seeSpecificRound(self.listbox_rounds))
+        self.button_rounds_see.grid(row=0,column=1)
+        self.frame_rounds_title.grid(row=0)
 
-        self.listbox_rounds = Listbox(self.frame_rounds,width=25)
+        self.listbox_rounds = Listbox(self.frame_rounds,width=25,selectmode=SINGLE)
         self.listbox_rounds.insert(0,"Tournament hasnt strated yet")
-        self.listbox_rounds.grid(row=1,column=0)
+        self.listbox_rounds.grid(row=1)
 
         self.frame_rounds.grid(row=0,column=1)
 
@@ -198,8 +220,7 @@ class MasterPage():
 
         self.entry_rounds = Entry(self.frame_startTournament)
         self.entry_rounds.pack()
-
-        self.button_startTournament = Button(self.frame_startTournament,text="Start tournament",command=lambda : self.startTournament)
+        self.button_startTournament = Button(self.frame_startTournament,text="Start tournament",command=lambda : self.startTournament(self.entry_rounds))
         self.button_startTournament.pack()
 
         self.window.mainloop()

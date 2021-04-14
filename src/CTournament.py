@@ -1,4 +1,4 @@
-
+from src.CRound import Round
 
 class Tournament:
     def __init__(self,i_name,i_date):
@@ -19,6 +19,10 @@ class Tournament:
             i_player.id = self.playerTab[l-1].id + 1    
         self.playerTab.append(i_player)
     
+    def initRounds(self):
+        for index in range(self.nbrRounds):
+            self.rounds.append(Round())
+    
     def initFirstRound(self):
         sortedPlayerTab = []
             # tri des joueurs en fonction de leur elo
@@ -37,17 +41,14 @@ class Tournament:
                     sortedPlayerTab().append(player_temp)
                 index +=1
             if index == len(sortedPlayerTab) and player.elo < sortedPlayerTab[-1].elo:
-                sortedPlayerTab.append(player)    
+                sortedPlayerTab.append(player)   
+         
         
         l = len(self.playerTab)
             # creation des match
         for index in range(int(l/2) - 1):
             self.rounds[0].matchTab[index] = Match(sortedPlayerTab[index],sortedPlayerTab[int(l/2)+index])
-
-    def createRounds(self,i_nbrRounds):
-        self.nbrRounds = i_nbrRounds
-        initFirstRound()
-
-    def startTournament(self):
         
-        createRounds()
+        self.rounds[0].status = "Playing..."
+
+    
