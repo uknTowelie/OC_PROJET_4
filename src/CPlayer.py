@@ -1,10 +1,25 @@
 class Player:
     
-    def __init__(self,i_name,i_elo,i_nationality):
-        self.name = i_name
+    def __init__(self,i_first_name,i_last_name,i_birth_date,i_sexe,i_elo):
+        self.first_name = i_first_name
+        self.last_name = i_last_name
+        self.birth_date = i_birth_date
+        self.sexe = i_sexe
         self.elo = i_elo
-        self.nationality = i_nationality
+        
         self.id = -1
         self.point = 0
-        self.recentVersus = []
+
+    def serialize(self):
+        dictPlayer = {
+            'first_name' : self.first_name,
+            'last_name' : self.last_name,
+            'birth_date' : self.birth_date,
+            'sexe' : self.sexe,
+            'elo' : self.elo,
+            'id' : self.id,
+            'point' : self.point
+        }
+
+        return dictPlayer
 
