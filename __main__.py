@@ -1,7 +1,4 @@
-from src.CWindow_master import MasterPage
-
-from src.CMenu import Menu
-
+from src.Menu import Menu
 
 
 def main():
@@ -10,6 +7,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-    
-
-
