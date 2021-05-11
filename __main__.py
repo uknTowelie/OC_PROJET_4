@@ -1,8 +1,8 @@
-from src.Menu import Menu
+from src.Controller import Controller
 
 
 def main():
-    Menu()
+    Controller()
 
 
 if __name__ == "__main__":

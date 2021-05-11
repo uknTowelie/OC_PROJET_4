@@ -17,10 +17,8 @@ class Controller:
         print("\nSetting up rounds dates :")
         date_list = []
         for index in range(1, 5):
-            #date_list.append(self.safeFullDateInput("round " + str(index) + " date start :"))
-            #date_list.append(self.safeFullDateInput("round " + str(index) + " date end :"))
-            date_list.append(datetime.datetime.strptime("02-03-2222-16-00", "%d-%m-%Y-%H-%M"))
-            date_list.append(datetime.datetime.strptime("02-03-2222-17-00", "%d-%m-%Y-%H-%M"))
+            date_list.append(self.safeFullDateInput("round " + str(index) + " date start :"))
+            date_list.append(self.safeFullDateInput("round " + str(index) + " date end :"))
         self.tournament = Tournament(name, date, place)
         index = 0
         for rounde in self.tournament.rounds:
@@ -184,14 +182,6 @@ class Controller:
                 print("Wrong syntax")
         elif self.tournament.state == 0:
             if choice == 1:
-                self.tournament.addPlayerToTab(Player("zaa", "poueur1", datetime.datetime.strptime("08-03-2222", "%d-%m-%Y"), "H", 1200))
-                self.tournament.addPlayerToTab(Player("xaaz", "Joueur2", datetime.datetime.strptime("04-06-2222", "%d-%m-%Y"), "H", 2300))
-                self.tournament.addPlayerToTab(Player("aaazz", "zoueur3", datetime.datetime.strptime("12-04-2222", "%d-%m-%Y"), "H", 3000))
-                self.tournament.addPlayerToTab(Player("gaae", "Joueur4", datetime.datetime.strptime("18-08-2222", "%d-%m-%Y"), "H", 2000))
-                self.tournament.addPlayerToTab(Player("iaaa", "Joueur5", datetime.datetime.strptime("12-03-2222", "%d-%m-%Y"), "H", 1030))
-                self.tournament.addPlayerToTab(Player("mazeaa", "Joueur6", datetime.datetime.strptime("10-03-2222", "%d-%m-%Y"), "H", 1200))
-                self.tournament.addPlayerToTab(Player("aafva", "Joueur7", datetime.datetime.strptime("03-03-2222", "%d-%m-%Y"), "H", 1030))
-                self.tournament.addPlayerToTab(Player("axvxaa", "Joueur8", datetime.datetime.strptime("02-05-2222", "%d-%m-%Y"), "H", 100))
                 self.tournament.startTournament()
             elif choice == 2:
                 self.createNewPlayer()
