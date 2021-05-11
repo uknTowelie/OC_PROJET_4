@@ -23,43 +23,45 @@ class View:
     def showMenu(self, tournament):
         if tournament is None:
             print("     TournamentSup\n")
-            print("1 : Create a new tournament\n2 : Load a previous \
-                   tournament\n3 : Database\n4 : Quitter")
+            print("1 : Create a new tournament\n2 : Load a previous"
+                  "tournament\n3 : Database\n4 : Quitter")
 
         elif tournament.state == 0:
             print(tournament.name + "     TournamentSup       " +
                   str(len(tournament.player_list)) + "/8 player registred\n")
-            print("1 : Start Tournament\n2 : Add player\n \
-                   3 : Show player list\n4 : Update elo of a player\n \
-                   5 : Database\n6 : Save Tournament\n7 : Exit")
+            print("1 : Start Tournament\n2 : Add player\n"
+                  "3 : Show player list\n4 : Update elo of a player\n"
+                  "5 : Database\n6 : Save Tournament\n7 : Exit")
 
         elif tournament.state == 1:
             print(tournament.name + "     TournamentSup")
             print("Round : " + str(tournament.currRound) + "/" +
                   str(tournament.nbrRounds))
+            format = "%d/%m/%Y %H:%M"
             print("Start : " +
-                  tournament.rounds[tournament.currRound-1].date_start)
+                  tournament.rounds[tournament.currRound-1].date_start.strftime(format))
             print("End : " +
-                  tournament.rounds[tournament.currRound-1].date_end +
+                  tournament.rounds[tournament.currRound-1].date_end.strftime(format) +
                   "\n")
             if tournament.rounds[tournament.currRound-1] \
                     .match_list[0].state == 0:
-                print("1 : Scoreboard\n2 : Show match list\n3 : Start round\n \
-                       4 : Update player elo\n5 : Save\n6 : Exit")
+                print("1 : Scoreboard\n2 : Show match list\n3 : Start round\n"
+                      "4 : Update player elo\n5 : Save\n6 : Exit")
             else:
-                print("1 : Scoreboard\n2 : Show match list\n3 : Finish round\n \
-                       4 : Update player elo\n5 : Save\n6 : Exit")
+                print("1 : Scoreboard\n2 : Show match list\n3 : Finish round\n"
+                      "4 : Update player elo\n5 : Save\n6 : Exit")
         elif tournament.state == 2:
             print(tournament.name + "     TournamentSup       " +
                   "Tournament is Over\n")
-            print("1 : Show scoreboard\n2 : Update elo\n \
-                   3 : Close this tournament")
+            print("1 : Show scoreboard\n2 : Update elo\n"
+                  "3 : Close this tournament")
 
     def showPlayerList(self, player_list):
         print("Player List :")
+        format = "%d/%m/%Y"
         for player in player_list:
             print(str(player.id) + " : " + player.first_name +
-                  "  " + player.last_name + "  " + player.birth_date +
+                  "  " + player.last_name + "  " + player.birth_date.strftime(format) +
                   "  " + player.sexe + " " + str(player.elo))
 
         input("\nPress any key to continue ...")
@@ -171,10 +173,10 @@ class View:
 
     def showDatabaseMenu(self):
         print("     TournamentSup")
-        print("0 : Go back\n1 : Show player list\n \
-               2 : Show player list of a tournament\n \
-               3 : Show all tournament\n4 : Show rounds of a tournament\n \
-               5 : Show match of a tournament")
+        print("0 : Go back\n1 : Show player list\n"
+              "2 : Show player list of a tournament\n"
+              "3 : Show all tournament\n4 : Show rounds of a tournament\n"
+              "5 : Show match of a tournament")
 
     def showSortMenu(self):
         print("Chose the way to sort the list :")

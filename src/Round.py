@@ -27,11 +27,12 @@ class Round:
             for match in self.match_list:
                 serialized_match_list.append(match.serialize())
 
+        format = "%d-%m-%Y-%H-%M"
         round_dict = {
             'state': self.state,
             'match_list': serialized_match_list,
-            'date_start': self.date_start,
-            'date_end': self.date_end,
+            'date_start': self.date_start.strftime(format),
+            'date_end': self.date_end.strftime(format),
             'name': self.name
         }
 

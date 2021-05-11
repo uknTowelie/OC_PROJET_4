@@ -152,9 +152,10 @@ class Tournament:
             for player in self.scoreboard:
                 serialized_scoreboard.append(player.serialize())
 
+        format = "%d-%m-%Y-%H-%M"
         serialized_tournament = {
             'name': self.name,
-            'date': self.date,
+            'date': self.date.strftime(format),
             'place': self.place,
             'state': self.state,
             'nbrRounds': self.nbrRounds,

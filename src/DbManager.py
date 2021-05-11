@@ -3,6 +3,7 @@ from src.Tournament import Tournament
 from src.Round import Round
 from src.Match import Match
 from src.Player import Player
+import datetime
 
 DB_PATH = "src/db.json"
 
@@ -44,7 +45,8 @@ class Database:
     def unserializePlayer(self, serialized_player):
         last_name = serialized_player['last_name']
         first_name = serialized_player['first_name']
-        birth_date = serialized_player['birth_date']
+        format = "%d-%m-%Y"
+        birth_date = datetime.datetime.strptime(serialized_player['birth_date'], format)
         sexe = serialized_player['sexe']
         elo = serialized_player['elo']
         player_id = serialized_player['id']
@@ -87,8 +89,9 @@ class Database:
         rounde = Round(index)
         rounde.match_list = self.loadMatchList(serialized_round['match_list'])
         rounde.state = serialized_round['state']
-        rounde.date_start = serialized_round['date_start']
-        rounde.date_end = serialized_round['date_end']
+        format = "%d-%m-%Y-%H-%M"
+        rounde.date_start = datetime.datetime.strptime(serialized_round['date_start'], format)
+        rounde.date_end = datetime.datetime.strptime(serialized_round['date_end'], format)
 
         return rounde
 
@@ -112,7 +115,9 @@ class Database:
 
         name = serialized_tournament['name']
         place = serialized_tournament['place']
-        date = serialized_tournament['date']
+
+        format = "%d-%m-%Y-%H-%M"
+        date = datetime.datetime.strptime(serialized_tournament['date'], format)
 
         state = serialized_tournament['state']
         curr_round = serialized_tournament['currRound']

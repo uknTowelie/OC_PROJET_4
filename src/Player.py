@@ -12,10 +12,11 @@ class Player:
         self.point = 0
 
     def serialize(self):
+        format = "%d-%m-%Y"
         dictPlayer = {
             'first_name': self.first_name,
             'last_name': self.last_name,
-            'birth_date': self.birth_date,
+            'birth_date': self.birth_date.strftime(format),
             'sexe': self.sexe,
             'elo': self.elo,
             'id': self.id,
